@@ -1,0 +1,6 @@
+- name: Put "vagrant" user in www-data group
+  user:
+    name: "vagrant"
+    groups: "www-data"
+    append: yes
+

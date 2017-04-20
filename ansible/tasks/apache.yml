@@ -1,0 +1,32 @@
+- name: Install Apache and its modules
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - libapache2-mod-php5.6
+
+- name: Activate mod_rewrite
+  apache2_module:
+    name: rewrite
+    state: present
+
+- name: Set up XDebug for remote debugging
+  template:
+    src:  templates/xdebug
+    dest: /etc/php/5.6/apache2/conf.d/xdebug-remote-debugging.ini
+
+- name: Copy virtual host setup over
+  template:
+    src: templates/vhost.conf
+    dest: /etc/apache2/sites-available/
+
+- name: Activate virtual host
+  command: a2ensite vhost
+
+- name: Deactivate default vhost
+  command: a2dissite 000-default
+
+- name: Ensure Apache is running
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes

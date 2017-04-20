@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: True
+  become_method: sudo
+  become_user: root
+  remote_user: ubuntu
+  tasks:
+    - name: set timezone to Etc/UTC
+      timezone:
+        name: Etc/UTC
+    - include: tasks/packages.yml
+    - include: tasks/php.yml
+    - include: tasks/vagrant.yml
+    - include: tasks/nginx.yml
+    - include: tasks/apache.yml
+    # - include: tasks/mysql.yml
+    - include: tasks/moodle.yml
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+    - name: restart php5.6-fpm
+      service: name=php5.6-fpm state=restarted
+    - name: restart mysql
+      service: name=mysql state=restarted

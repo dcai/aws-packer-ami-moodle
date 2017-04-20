@@ -1,0 +1,19 @@
+- name: Install packages
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - git
+    - tig
+    - unzip
+    - xz-utils
+    - unrar
+    - htop
+    - aptitude
+    - vim
+    - mysql-client
+    - mcrypt
+    - ruby
+    - tig
+    - tmux
+    - tree
+    - python-pip
+
