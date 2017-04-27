@@ -12,18 +12,18 @@
         "region": "{{user `aws_region`}}",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
-        "ami_name": "cr-moodle29-instance-{{timestamp}}",
+        "ami_name": "charter-resources-moodle29-{{timestamp}}",
         "ami_block_device_mappings": [
             {
                 "device_name": "/dev/sda1",
-                "volume_size": 32,
+                "volume_size": 20,
                 "delete_on_termination": true
             }
         ],
         "launch_block_device_mappings": [
             {
                 "device_name": "/dev/sda1",
-                "volume_size": 32,
+                "volume_size": 20,
                 "delete_on_termination": true
             }
         ]
