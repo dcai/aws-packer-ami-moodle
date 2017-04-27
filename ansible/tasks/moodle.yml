@@ -29,6 +29,15 @@
   template:
     src: templates/moodleindex.php
     dest: /var/www/moodlehtml/index.php
+
+- name: set moodle directory ownership
+  file:
+    dest: /var/www/moodlehtml
+    recurse: yes
+    state: directory
+    owner: www-data
+    group: www-data
+
 # - name: Copy database dump file
   # copy:
     # src: dump.sql.bz2
