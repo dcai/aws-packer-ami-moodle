@@ -16,4 +16,5 @@
     - tmux
     - tree
     - python-pip
+    - software-properties-common
 
