@@ -9,6 +9,7 @@
       timezone:
         name: Etc/UTC
     - include: tasks/packages.yml
+    - include: tasks/java.yml
     - include: tasks/php.yml
     - include: tasks/vagrant.yml
     - include: tasks/nginx.yml
