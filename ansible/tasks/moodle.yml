@@ -17,6 +17,18 @@
     # version: MOODLE_29_STABLE
     # dest: /var/www/moodlehtml
 
+- name: checkout moodle benchmark plugin
+  git:
+    repo: 'https://github.com/mikasmart/benchmark.git'
+    depth: 1
+    dest: /var/www/moodlehtml/report/benchmark
+
+- name: checkout jmeter plan maker
+  git:
+    repo: 'https://github.com/dcai/moodle-report_loadtesting.git'
+    depth: 1
+    dest: /var/www/moodlehtml/report/loadtesting
+
 - name: Creates moodle data dir
   file: path=/var/moodledata state=directory owner=www-data group=www-data mode=0775
 
