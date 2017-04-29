@@ -14,6 +14,11 @@
     src:  templates/xdebug
     dest: /etc/php/5.6/apache2/conf.d/xdebug-remote-debugging.ini
 
+- name: Copy php.ini file over
+  template:
+    src: templates/php56.ini
+    dest: /etc/php/5.6/apache2/php.ini
+
 - name: Copy virtual host setup over
   template:
     src: templates/vhost.conf

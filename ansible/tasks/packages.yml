@@ -15,6 +15,7 @@
     - ruby
     - tig
     - tmux
+    - mosh
     - tree
     - python-pip
     - software-properties-common

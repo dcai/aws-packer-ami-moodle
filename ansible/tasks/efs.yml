@@ -2,3 +2,22 @@
   apt: name={{ item }} state=latest update_cache=yes
   with_items:
     - nfs-common
+
+- name: Create EFS mount point
+  file:
+    path: /mnt/efs
+    state: directory
+    owner: root
+    group: root
+
+- name: Mount EFS
+  mount:
+    path: /mnt/efs
+    src: '{{ efs_endpoint }}:/'
+    fstype: nfs4
+    opts: nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2
+    state: present
+
+- name: Mount EFS
+  command: mount /mnt/efs
+

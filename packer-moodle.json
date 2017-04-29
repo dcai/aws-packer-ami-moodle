@@ -1,6 +1,14 @@
 {
     "variables": {
         "aws_region": null,
+        "efs_endpoint": "",
+        "moodle_wwwroot": "",
+        "moodle_dataroot": "",
+        "moodle_dbhost": "",
+        "moodle_dbname": "",
+        "moodle_dbuser": "",
+        "moodle_dbpass": "",
+        "aws_security_group_id": "",
         "aws_access_key": "",
         "aws_secret_key": ""
     },
@@ -10,6 +18,7 @@
         "access_key": "{{user `aws_access_key`}}",
         "secret_key": "{{user `aws_secret_key`}}",
         "region": "{{user `aws_region`}}",
+        "security_group_id": "{{user `aws_security_group_id`}}",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
         "ami_name": "charter-resources-moodle29-{{timestamp}}",
@@ -38,7 +47,10 @@
             "type": "ansible-local",
             "playbook_dir": "ansible/",
             "playbook_file": "ansible/playbook.yml",
-            "extra_arguments": "-vvvvv"
+            "extra_arguments": [
+                "--extra-vars 'efs_endpoint={{user `efs_endpoint`}} moodle_dbhost={{user `moodle_dbhost`}} moodle_dbname={{user `moodle_dbname`}} moodle_dbuser={{user `moodle_dbuser`}} moodle_dbpass={{user `moodle_dbpass`}} moodle_dataroot={{user `moodle_dataroot`}} moodle_wwwroot={{user `moodle_wwwroot`}}'",
+                "-vvvvv"
+            ]
         }
     ]
 }

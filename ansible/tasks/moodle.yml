@@ -1,3 +1,19 @@
+- name: Create moodle data root directory
+  file:
+    path: /mnt/efs/{{ moodle_dataroot }}
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+
+- name: Create moodle muc folder
+  file:
+    path: /var/cache/moodlemuc
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+
 - name: Getting Moodle
   unarchive:
     src: https://s3.amazonaws.com/radixlms-htdocs/htdocs.tar.xz
@@ -29,9 +45,6 @@
     depth: 1
     dest: /var/www/moodlehtml/report/loadtesting
 
-- name: Creates moodle data dir
-  file: path=/var/moodledata state=directory owner=www-data group=www-data mode=0775
-
 - name: moodle config.php
   template:
     src: templates/moodleconfig.php
@@ -42,7 +55,7 @@
     src: templates/moodleindex.php
     dest: /var/www/moodlehtml/index.php
 
-- name: set moodle directory ownership
+- name: Change moodle directory ownership
   file:
     dest: /var/www/moodlehtml
     recurse: yes
