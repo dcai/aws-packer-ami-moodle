@@ -10,6 +10,8 @@
         "moodle_dbpass": "",
         "aws_security_group_id": "",
         "aws_access_key": "",
+        "httpd_user": "www-data",
+        "httpd_group": "www-data",
         "aws_secret_key": ""
     },
     "builders": [{
@@ -48,7 +50,7 @@
             "playbook_dir": "ansible/",
             "playbook_file": "ansible/playbook.yml",
             "extra_arguments": [
-                "--extra-vars 'efs_endpoint={{user `efs_endpoint`}} moodle_dbhost={{user `moodle_dbhost`}} moodle_dbname={{user `moodle_dbname`}} moodle_dbuser={{user `moodle_dbuser`}} moodle_dbpass={{user `moodle_dbpass`}} moodle_dataroot={{user `moodle_dataroot`}} moodle_wwwroot={{user `moodle_wwwroot`}}'",
+                "--extra-vars 'httpd_user={{user `httpd_user`}} httpd_group={{user `httpd_group`}} moodle_download_url={{user `moodle_download_url`}} efs_endpoint={{user `efs_endpoint`}} moodle_dbhost={{user `moodle_dbhost`}} moodle_dbname={{user `moodle_dbname`}} moodle_dbuser={{user `moodle_dbuser`}} moodle_dbpass={{user `moodle_dbpass`}} moodle_dataroot={{user `moodle_dataroot`}} moodle_wwwroot={{user `moodle_wwwroot`}}'",
                 "-vvvvv"
             ]
         }

@@ -14,6 +14,7 @@ $CFG->dbpass    = '{{ moodle_dbpass }}';
 $CFG->prefix    = 'mdl_';
 $CFG->wwwroot   = 'http://{{ moodle_wwwroot }}';
 $CFG->dataroot  = '/mnt/efs/{{ moodle_dataroot }}';
+$CFG->localcachedir = '/var/cache/moodlecache';
 $CFG->directorypermissions = 02777;
 $CFG->admin = 'admin';
 date_default_timezone_set('Etc/UTC');

@@ -1,7 +1,7 @@
 - name: PHP | Install Ondrej PHP PPA
   apt_repository: repo='ppa:ondrej/php' update_cache=yes
 
-- name: Install PHP and its modules
+- name: PHP | Install PHP and its modules
   apt: pkg={{ item }} state=latest
   with_items:
     - php5.6
@@ -18,16 +18,39 @@
     - php5.6-mbstring
     - php5.6-zip
     - php5.6-xdebug
+    - php5.6-opcache
     - php-memcached
     - php-redis
 
-- stat: path=/usr/local/bin/composer
-  register: composer_folder
-
-- name: Copy php.ini file over
+- name: PHP | Copy php.ini file over for apache
   template:
     src: templates/php56.ini
-    dest: /etc/php/5.6/fpm/php.ini
+    dest: /etc/php/5.6/apache2/php.ini
+
+# - name: Set up XDebug for remote debugging
+  # template:
+    # src:  templates/xdebug.ini
+    # dest: /etc/php/5.6/apache2/conf.d/xdebug-remote-debugging.ini
+
+- name: PHP-FPM | Copy the templates to their respestive destination
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ httpd_user }}"
+    group: "{{ httpd_group }}"
+  with_items:
+    - { src: 'templates/php-fpm-www.conf', dest: '/etc/php/5.6/fpm/pool.d/www.conf' }
+    - { src: 'templates/php56.ini', dest: '/etc/php/5.6/fpm/php.ini' }
+  notify:
+    - Restart PHP5-FPM
+
+- name: PHP | Setup opcache
+  template:
+    src: templates/opcache.ini
+    dest: /etc/php/5.6/mods-available/opcache.ini
+
+- stat: path=/usr/local/bin/composer
+  register: composer_folder
 
 - name: PHP | Install Composer
   shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer

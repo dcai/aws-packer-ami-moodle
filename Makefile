@@ -8,12 +8,15 @@ validate-moodle-ami:
 	    -var "aws_region=${AWSREGION}" \
 	    packer-moodle.json
 
-build-moodle-ami:
+build-moodle-ami-tsms:
 	packer build -var "aws_access_key=${AWSACCESSKEY}" \
-	    -var "aws_security_group_id=sg-18c5b767" \
+	    -var "httpd_user=www-data" \
+	    -var "httpd_group=www-data" \
 	    -var "aws_secret_key=${AWSSECRETKEY}" \
 	    -var "aws_region=${AWSREGION}" \
+	    -var "aws_security_group_id=sg-18c5b767" \
 	    -var "efs_endpoint=fs-cbda6682.efs.us-east-1.amazonaws.com" \
+	    -var "moodle_download_url=https://s3.amazonaws.com/radixlms-htdocs/htdocs.tar.xz" \
 	    -var "moodle_dbhost=moodleaurorainstance1-cluster.cluster-csanwariuqeb.us-east-1.rds.amazonaws.com" \
 	    -var "moodle_dbname=2016_tsms" \
 	    -var "moodle_dbuser=moodle" \

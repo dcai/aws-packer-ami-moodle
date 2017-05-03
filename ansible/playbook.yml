@@ -8,15 +8,16 @@
     - name: set timezone to Etc/UTC
       timezone:
         name: Etc/UTC
-    - include: tasks/efs.yml
-    - include: tasks/packages.yml
-    - include: tasks/java.yml
-    - include: tasks/php.yml
-    - include: tasks/vagrant.yml
     - include: tasks/nginx.yml
-    - include: tasks/apache.yml
+    # - include: tasks/user.yml
+    # - include: tasks/efs.yml
+    # - include: tasks/packages.yml
+    # - include: tasks/java.yml
+    # - include: tasks/php.yml
+    # - include: tasks/vagrant.yml
+    # - include: tasks/apache.yml
     # - include: tasks/mysql.yml
-    - include: tasks/moodle.yml
+    # - include: tasks/moodle.yml
 
   handlers:
     - name: restart nginx

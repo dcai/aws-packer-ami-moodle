@@ -1,14 +1,14 @@
 - name: Create moodle data root directory
   file:
-    path: /mnt/efs/{{ moodle_dataroot }}
+    path: '/mnt/efs/{{ moodle_dataroot }}'
     state: directory
     owner: www-data
     group: www-data
     mode: 0775
 
-- name: Create moodle muc folder
+- name: Create moodle general cache folder
   file:
-    path: /var/cache/moodlemuc
+    path: /var/cache/moodlecache
     state: directory
     owner: www-data
     group: www-data
@@ -16,7 +16,7 @@
 
 - name: Getting Moodle
   unarchive:
-    src: https://s3.amazonaws.com/radixlms-htdocs/htdocs.tar.xz
+    src: '{{ moodle_download_url }}'
     dest: /var/www/
     remote_src: True
 
