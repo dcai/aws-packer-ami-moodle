@@ -1,4 +1,4 @@
-- name: Put "vagrant" user in www-data group
+- name: Vagrant | Put "vagrant" user in www-data group
   user:
     name: "vagrant"
     groups: "www-data"

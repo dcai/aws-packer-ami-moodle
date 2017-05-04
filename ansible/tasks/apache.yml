@@ -1,31 +1,31 @@
-- name: Install Apache and its modules
+- name: Apache | Install Apache and its modules
   apt: pkg={{ item }} state=latest
   with_items:
     - apache2
     - libapache2-mod-php5.6
 
-- name: Activate mod_rewrite
+- name: Apache | Activate mod_rewrite
   apache2_module:
     name: rewrite
     state: present
 
-- name: Copy virtual host setup over
+- name: Apache | Copy virtual host setup over
   template:
     src: templates/vhost.conf
     dest: /etc/apache2/sites-available/
 
-- name: Activate virtual host
+- name: Apache | Activate virtual host
   command: a2ensite vhost
 
-- name: Deactivate default vhost
+- name: Apache | Deactivate default vhost
   command: a2dissite 000-default
 
-- name: Copy prefork config over
+- name: Apache | Copy prefork config over
   template:
     src: templates/mpm_prefork-16G.conf
     dest: /etc/apache2/mods-enabled/mpm_prefork.conf
 
-- name: PHP | Copy php.ini file over for apache
+- name: PHP | Copy php.ini file over for Apache
   template:
     src: templates/php56.ini
     dest: /etc/php/5.6/apache2/php.ini
@@ -33,7 +33,7 @@
 # - name: Symlink prefork
   # file: src=/etc/apache2/mods-available/mpm_prefork.conf dest=/etc/apache2/mods-enabled/mpm_prefork.conf state=link
 
-- name: Ensure Apache is running
+- name: Apache | Ensure Apache is running
   service:
     name: apache2
     state: restarted
