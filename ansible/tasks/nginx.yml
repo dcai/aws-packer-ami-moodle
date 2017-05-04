@@ -9,6 +9,20 @@
     state: installed
     update_cache: yes
 
+- name: PHP-FPM | Copy config
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ httpd_user }}"
+    group: "{{ httpd_group }}"
+  with_items:
+    - { src: 'templates/php-fpm-www.conf', dest: '/etc/php/5.6/fpm/pool.d/www.conf' }
+    - { src: 'templates/php56.ini', dest: '/etc/php/5.6/fpm/php.ini' }
+    - { src: 'templates/opcache.ini', dest: '/etc/php/5.6/mods-available/opcache.ini' }
+  notify:
+    - restart php5.6-fpm
+
+
 - name: NGINX | Copy the templates to their respestive estination
   template:
     src: "{{ item.src }}"
@@ -31,6 +45,6 @@
   with_items:
     - { dest: '/etc/nginx/sites-enabled/default', state: 'absent' }
     - { dest: '/var/www/html/index.nginx-debian.html', state: 'absent' }
-    - { src: '/etc/nginx/sites-available/{{ moodle_wwwroot }}', dest: '/etc/nginx/sites-enabled/{{ moodle_wwwroot }}', state: 'link' }
+    - { src: '/etc/nginx/sites-available/{{ moodle_wwwroot }}.conf', dest: '/etc/nginx/sites-enabled/{{ moodle_wwwroot }}.conf', state: 'link' }
   notify:
     - restart nginx
