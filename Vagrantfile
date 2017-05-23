@@ -13,9 +13,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # end
   config.vm.synced_folder ".", "/vagrant", owner:"www-data", group:"www-data", mount_options:["dmode=775", "fmode=775"]
 
-  config.vm.provision "shell" do |s|
-      s.inline = "sudo apt-get update && sudo apt-get install python"
-  end
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-add-repository ppa:ansible/ansible
+    sudo apt-get update
+    sudo apt-get install -y python software-properties-common ansible
+  SHELL
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
