@@ -23,7 +23,7 @@
         "security_group_id": "{{user `aws_security_group_id`}}",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
-        "ami_name": "charter-resources-nginx-{{timestamp}}",
+        "ami_name": "{{user `ami_name`}}-{{timestamp}}",
         "ami_block_device_mappings": [
             {
                 "device_name": "/dev/sda1",

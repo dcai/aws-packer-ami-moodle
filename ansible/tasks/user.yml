@@ -20,16 +20,31 @@
   get_url:
     url: https://gist.githubusercontent.com/dcai/cd2b8102218eb8381e6a1aacc80a0cb0/raw/b0087b5bc7c950bd56241d74c53186bd3ebd4e88/.vimrc
     dest: /home/ubuntu/.vimrc
+    owner: ubuntu
+    group: ubuntu
     mode: 0640
 
 - name: $HOME | download .bashrc
   get_url:
     url: https://gist.githubusercontent.com/dcai/fe2661d017dcbfd19804bbe1b702af08/raw/cba58cc0d9e071eb979a2dd715988286d62915cf/.bashrc
     dest: /home/ubuntu/.bashrc
+    owner: ubuntu
+    group: ubuntu
     mode: 0640
 
 - name: $HOME | download .tmux.conf
   get_url:
     url: https://gist.githubusercontent.com/dcai/a2e7ca940babda0c7137/raw/8fe17ebb5a51180fe0a677784af05899d3a3ee25/.tmux.conf
     dest: /home/ubuntu/.tmux.conf
+    owner: ubuntu
+    group: ubuntu
     mode: 0640
+
+- name: $HOME | Set authorized key
+  authorized_key:
+    user: ubuntu
+    key: '{{ item }}'
+    state: present
+  with_file:
+    - public_keys/bahcaci.openssh.pub
+    - public_keys/samet.openssh.pub
